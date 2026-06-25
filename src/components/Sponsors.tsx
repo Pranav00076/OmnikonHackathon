@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const sponsors = [
   'Google', 'Microsoft', 'GitHub', 'Unstop', 'Vercel', 'Stripe', 'Supabase', 'Figma'
@@ -8,55 +9,33 @@ const sponsors = [
 
 export default function Sponsors() {
   return (
-    <section id="sponsors" style={{ padding: '100px 0', minHeight: '40vh', overflow: 'hidden' }}>
-      <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-        <h2 className="neon-text" style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>OUR ALLIES</h2>
-        <div style={{ width: '100px', height: '4px', background: 'var(--neon-red)', margin: '1rem auto', boxShadow: '0 0 15px var(--neon-red)' }} />
+    <section id="sponsors" className="py-24 relative overflow-hidden bg-black/50">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,0,0.05)_0%,transparent_70%)] pointer-events-none" />
+      
+      <div className="text-center mb-16 relative z-10">
+        <h2 className="neon-text text-5xl md:text-6xl text-text-primary mb-6">OUR ALLIES</h2>
+        <div className="w-24 h-1 bg-neon-red mx-auto shadow-[0_0_15px_var(--neon-red)]" />
       </div>
 
-      <div style={{ display: 'flex', position: 'relative', width: '100vw', overflow: 'hidden', padding: '2rem 0' }}>
+      <div className="relative flex w-screen overflow-hidden py-10 z-10">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
-          style={{ display: 'flex', gap: '3rem', paddingLeft: '3rem', width: 'max-content' }}
+          transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
+          className="flex gap-8 md:gap-12 pl-8 md:pl-12 w-max"
         >
           {/* Double the list to make it infinite loop seamlessly */}
           {[...sponsors, ...sponsors].map((sponsor, i) => (
             <div
               key={i}
-              className="glass"
-              style={{
-                padding: '2rem 4rem',
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minWidth: '250px',
-                border: '1px solid var(--glass-border)',
-                boxShadow: '0 0 20px rgba(255, 0, 0, 0.1)',
-                transition: 'all 0.3s',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--neon-red)';
-                e.currentTarget.style.boxShadow = '0 0 30px var(--neon-red-light)';
-                const text = e.currentTarget.querySelector('span');
-                if (text) {
-                  text.style.color = 'var(--neon-red)';
-                  text.style.textShadow = '0 0 10px var(--neon-red)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--glass-border)';
-                e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.1)';
-                const text = e.currentTarget.querySelector('span');
-                if (text) {
-                  text.style.color = 'var(--text-secondary)';
-                  text.style.textShadow = 'none';
-                }
-              }}
+              className="group relative flex items-center justify-center min-w-[250px] md:min-w-[300px] h-[120px] rounded-2xl glass cursor-pointer overflow-hidden border border-glass-border hover:border-neon-red transition-colors duration-500 hover:shadow-[0_0_30px_rgba(255,0,0,0.2)]"
             >
-              <span className="code-font" style={{ fontSize: '1.8rem', color: 'var(--text-secondary)', fontWeight: 'bold', transition: 'all 0.3s' }}>
+              {/* Holographic Sweep Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.1)_50%,transparent_100%)] -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+              
+              {/* Scanline Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-[linear-gradient(transparent_50%,rgba(255,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none" />
+
+              <span className="code-font text-3xl font-bold text-gray-500 group-hover:text-neon-red group-hover:drop-shadow-[0_0_15px_var(--neon-red)] transition-all duration-300 z-10">
                 {sponsor}
               </span>
             </div>

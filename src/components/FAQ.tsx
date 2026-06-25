@@ -15,75 +15,59 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faqs" style={{ padding: '100px 2rem', minHeight: '60vh' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="neon-text" style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>TERMINAL_FAQ</h2>
-          <div style={{ width: '100px', height: '4px', background: 'var(--neon-red)', margin: '1rem auto', boxShadow: '0 0 15px var(--neon-red)' }} />
+    <section id="faqs" className="py-24 px-6 min-h-[60vh]">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="neon-text text-5xl md:text-6xl text-text-primary mb-6">TERMINAL_FAQ</h2>
+          <div className="w-24 h-1 bg-neon-red mx-auto shadow-[0_0_15px_var(--neon-red)]" />
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className="flex flex-col gap-4">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
               <div 
                 key={i} 
-                className="glass neon-border" 
-                style={{ 
-                  borderRadius: '8px', 
-                  overflow: 'hidden', 
-                  transition: 'all 0.3s',
-                  boxShadow: isOpen ? '0 0 20px rgba(255,0,0,0.3)' : '0 0 10px rgba(0,0,0,0.5)'
-                }}
+                className={`glass border transition-all duration-300 rounded-lg overflow-hidden ${
+                  isOpen ? 'border-neon-red shadow-[0_0_20px_rgba(255,0,0,0.3)]' : 'border-glass-border shadow-[0_0_10px_rgba(0,0,0,0.5)]'
+                }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  style={{
-                    width: '100%',
-                    background: 'var(--bg-secondary)',
-                    border: 'none',
-                    padding: '1.5rem 2rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    cursor: 'pointer',
-                    color: isOpen ? 'var(--neon-red)' : 'var(--text-primary)',
-                    fontSize: '1.2rem',
-                    textAlign: 'left',
-                    fontFamily: 'var(--font-orbitron), sans-serif',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px'
-                  }}
+                  className="w-full bg-[#0a0a0a] border-none p-6 flex items-center justify-between cursor-pointer text-left font-orbitron uppercase tracking-widest transition-colors duration-300 hover:bg-[#111]"
                 >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <span className="code-font" style={{ color: 'var(--text-secondary)' }}>{`>`}</span>
+                  <span className={`flex items-center gap-4 text-lg md:text-xl ${isOpen ? 'text-neon-red' : 'text-text-primary'}`}>
+                    <span className="code-font text-gray-500">{`>`}</span>
                     {faq.question}
                   </span>
                   <motion.span 
-                    animate={{ rotate: isOpen ? 90 : 0 }} 
-                    style={{ color: 'var(--neon-red)' }}
+                    animate={{ rotate: isOpen ? 180 : 0 }} 
+                    className="text-neon-red text-2xl"
                   >
-                    +
+                    ↓
                   </motion.span>
                 </button>
 
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
-                      animate={{ height: ['0px', 'auto'], opacity: [0, 1] }}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      style={{ overflow: 'hidden' }}
+                      className="overflow-hidden"
                     >
-                      <div className="code-font" style={{ 
-                        padding: '1.5rem 2rem', 
-                        color: 'var(--text-secondary)', 
-                        background: 'rgba(0,0,0,0.5)',
-                        borderTop: '1px solid var(--glass-border)',
-                        fontSize: '1.1rem',
-                        lineHeight: '1.6'
-                      }}>
-                        <span style={{ color: 'var(--neon-red)' }}>system:~$</span> {faq.answer}
+                      <div className="code-font p-6 text-text-secondary bg-black/80 border-t border-glass-border text-base md:text-lg leading-relaxed flex items-start gap-4">
+                        <span className="text-neon-red whitespace-nowrap">system:~$</span>
+                        <div className="relative">
+                          {faq.answer}
+                          {/* Blinking Cursor */}
+                          <motion.span 
+                            animate={{ opacity: [1, 0] }}
+                            transition={{ repeat: Infinity, duration: 0.8 }}
+                            className="inline-block w-2 h-4 bg-neon-red ml-1 align-middle"
+                          />
+                        </div>
                       </div>
                     </motion.div>
                   )}

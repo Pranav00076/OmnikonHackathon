@@ -1,8 +1,9 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { LayoutDashboard, Server, Layers, Bot } from 'lucide-react';
+import { LayoutDashboard, Server, Layers, Bot, Shield, Cloud } from 'lucide-react';
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 const tracks = [
   {
@@ -12,22 +13,28 @@ const tracks = [
     desc: 'Craft pixel-perfect, highly animated, and performant user interfaces.'
   },
   {
-    title: 'Backend Forge',
-    icon: Server,
-    tags: ['Node.js', 'APIs', 'Databases'],
-    desc: 'Architect robust APIs and scalable database systems.'
-  },
-  {
-    title: 'Full Stack Battlefield',
+    title: 'Fullstack Engineering',
     icon: Layers,
-    tags: ['E2E Apps', 'Auth', 'Deployments'],
+    tags: ['E2E Apps', 'Auth', 'Databases'],
     desc: 'Build complete applications from the database to the browser.'
   },
   {
-    title: 'AI & Automation Zone',
+    title: 'AI / ML',
     icon: Bot,
     tags: ['LLMs', 'Agents', 'Workflows'],
     desc: 'Integrate artificial intelligence to solve complex problems autonomously.'
+  },
+  {
+    title: 'Web Security',
+    icon: Shield,
+    tags: ['Auth', 'Pentesting', 'Cryptography'],
+    desc: 'Find and patch vulnerabilities. Build impenetrable systems.'
+  },
+  {
+    title: 'Cloud',
+    icon: Cloud,
+    tags: ['AWS', 'Docker', 'Serverless'],
+    desc: 'Architect scalable and resilient cloud infrastructure.'
   }
 ];
 
@@ -64,6 +71,7 @@ function TrackCard({ track, index }: { track: typeof tracks[0], index: number })
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       style={{ perspective: 1000 }}
+      className="group h-full"
     >
       <motion.div
         onMouseMove={handleMouseMove}
@@ -72,25 +80,23 @@ function TrackCard({ track, index }: { track: typeof tracks[0], index: number })
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
-          height: '100%',
-          cursor: 'pointer'
         }}
-        className="glass neon-border devil-horn-card"
-        whileHover={{ scale: 1.05 }}
+        className="relative h-full cursor-pointer glass neon-border devil-horn-card transition-colors duration-500 hover:bg-black/60"
       >
-        <div style={{ padding: '2.5rem', height: '100%', display: 'flex', flexDirection: 'column', transform: "translateZ(30px)" }}>
-          <div style={{ 
-            width: '60px', height: '60px', borderRadius: '12px', background: 'rgba(255,0,0,0.1)', 
-            display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem',
-            border: '1px solid var(--neon-red)', boxShadow: '0 0 15px var(--neon-red-light)'
-          }}>
-            <track.icon size={30} color="var(--neon-red)" />
+        <div 
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,0,0.1)_0%,transparent_60%)] pointer-events-none" 
+          style={{ transform: "translateZ(-10px)" }} 
+        />
+        
+        <div className="p-8 md:p-10 flex flex-col h-full z-10 relative" style={{ transform: "translateZ(30px)" }}>
+          <div className="w-16 h-16 rounded-xl bg-red-900/20 flex items-center justify-center mb-6 border border-neon-red shadow-[0_0_15px_var(--neon-red-light)]">
+            <track.icon size={32} className="text-neon-red drop-shadow-[0_0_8px_rgba(255,0,0,0.8)]" />
           </div>
-          <h3 className="neon-text" style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>{track.title}</h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', flex: 1, fontSize: '1.1rem' }}>{track.desc}</p>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <h3 className="neon-text text-2xl mb-4 text-text-primary tracking-wider">{track.title}</h3>
+          <p className="text-text-secondary mb-6 flex-1 text-lg font-light leading-relaxed">{track.desc}</p>
+          <div className="flex gap-2 flex-wrap mt-auto">
             {track.tags.map(tag => (
-              <span key={tag} className="code-font" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', padding: '0.3rem 0.8rem', borderRadius: '20px', fontSize: '0.8rem', color: 'var(--neon-red)' }}>
+              <span key={tag} className="code-font bg-white/5 border border-glass-border px-3 py-1 rounded-full text-xs text-neon-red tracking-wider">
                 {tag}
               </span>
             ))}
@@ -103,19 +109,19 @@ function TrackCard({ track, index }: { track: typeof tracks[0], index: number })
 
 export default function Tracks() {
   return (
-    <section id="tracks" style={{ padding: '100px 2rem', minHeight: '80vh' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="tracks" className="py-24 px-6 md:px-12 min-h-screen relative overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div 
           whileInView={{ opacity: [0, 1], y: [30, 0] }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: '4rem' }}
+          className="text-center mb-20"
         >
-          <h2 className="neon-text" style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>THE TRACKS</h2>
-          <div style={{ width: '100px', height: '4px', background: 'var(--neon-red)', margin: '1rem auto', boxShadow: '0 0 15px var(--neon-red)' }} />
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem' }}>Choose your battlefield and claim victory.</p>
+          <h2 className="neon-text text-5xl md:text-6xl text-text-primary mb-6">CHOOSE YOUR ARENA</h2>
+          <div className="w-24 h-1 bg-neon-red mx-auto shadow-[0_0_15px_var(--neon-red)]" />
+          <p className="text-text-secondary text-xl mt-6 font-light tracking-wide">Select your battlefield and claim victory.</p>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {tracks.map((track, i) => (
             <TrackCard key={track.title} track={track} index={i} />
           ))}
