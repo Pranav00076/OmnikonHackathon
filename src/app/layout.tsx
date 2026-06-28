@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Orbitron, Rajdhani, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
-import CustomCursor from "@/components/CustomCursor";
 import GlobalEffects from "@/components/GlobalEffects";
 
 const orbitron = Orbitron({
@@ -36,7 +35,6 @@ export default function RootLayout({
     <html lang="en" className={`${orbitron.variable} ${rajdhani.variable} ${shareTechMono.variable}`}>
       <body>
         <LenisProvider>
-          <CustomCursor />
           <GlobalEffects />
           {children}
         </LenisProvider>

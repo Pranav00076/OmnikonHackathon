@@ -7,6 +7,7 @@ import Hero from "@/components/Hero";
 import AboutTerminal from "@/components/AboutTerminal";
 import Tracks from "@/components/Tracks";
 import Timeline from "@/components/Timeline";
+import Rulebook from "@/components/Rulebook";
 import PrizePool from "@/components/PrizePool";
 import Sponsors from "@/components/Sponsors";
 import FAQ from "@/components/FAQ";
@@ -29,6 +30,7 @@ export default function Home() {
         <AboutTerminal />
         <Tracks />
         <Timeline />
+        <Rulebook />
         <PrizePool />
         <Sponsors />
         <FAQ />
