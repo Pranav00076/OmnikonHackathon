@@ -227,16 +227,15 @@ export default function Rulebook() {
           <div 
             className="absolute left-1/2 top-1/2 z-30"
             style={{ 
-              width: 0, 
-              height: 0,
-              animation: 'orbit-spin 25s linear infinite',
+              width: radius * 2, 
+              height: radius * 2,
+              animation: 'sweep-spin 25s linear infinite', // sweep-spin has the crucial translate(-50%, -50%)
               animationPlayState: isPaused ? 'paused' : 'running'
             }}
           >
             {/* Connecting SVG Lines */}
             <svg 
-              className="absolute pointer-events-none" 
-              style={{ left: -radius, top: -radius, width: radius * 2, height: radius * 2 }}
+              className="absolute inset-0 pointer-events-none w-full h-full" 
             >
               {rulesData.map((rule, i) => {
                 const angleDeg = (360 / rulesData.length) * i;
@@ -273,8 +272,8 @@ export default function Rulebook() {
                   key={rule.id}
                   className="absolute z-40"
                   style={{ 
-                    left: x, 
-                    top: y, 
+                    left: radius + x, 
+                    top: radius + y, 
                     animation: 'orbit-counter-spin 25s linear infinite',
                     animationPlayState: isPaused ? 'paused' : 'running'
                   }}
