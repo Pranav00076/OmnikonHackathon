@@ -22,6 +22,11 @@ const rulesData = [
 
 function TypewriterText({ text, speed = 15, onComplete }: { text: string, speed?: number, onComplete?: () => void }) {
   const [displayedText, setDisplayedText] = useState('');
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     setDisplayedText('');
@@ -31,12 +36,12 @@ function TypewriterText({ text, speed = 15, onComplete }: { text: string, speed?
       i++;
       if (i > text.length) {
         clearInterval(interval);
-        if (onComplete) onComplete();
+        if (onCompleteRef.current) onCompleteRef.current();
       }
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text, speed, onComplete]);
+  }, [text, speed]);
 
   return <span style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</span>;
 }
@@ -84,9 +89,9 @@ export default function Rulebook() {
         setIsMobile(true);
       } else {
         setIsMobile(false);
-        if (window.innerWidth < 1024) setRadius(240); // Tablet
-        else if (window.innerWidth < 1280) setRadius(320); // Desktop
-        else setRadius(380); // Large screens
+        if (window.innerWidth < 1024) setRadius(200); // Tablet
+        else if (window.innerWidth < 1280) setRadius(250); // Desktop
+        else setRadius(280); // Large screens
       }
     };
     handleResize();
