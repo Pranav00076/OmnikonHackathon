@@ -51,11 +51,8 @@ export default function FinalCTA() {
         ))}
       </div>
 
-      <motion.div 
-        whileInView={{ opacity: [0, 1], scale: [0.9, 1] }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-4xl mx-auto text-center glass neon-border p-12 md:p-20 rounded-3xl overflow-hidden group"
+      <div 
+        className="relative z-10 w-full max-w-4xl mx-auto text-center bg-[#0a0a0a]/95 neon-border p-12 md:p-20 rounded-3xl overflow-hidden group"
       >
         {/* Hover Glow */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,0,0.1)_0%,transparent_70%)] pointer-events-none" />
@@ -70,7 +67,7 @@ export default function FinalCTA() {
 
         <a 
           href="#register" 
-          className="relative inline-flex group/btn overflow-hidden px-10 py-5 bg-neon-red text-black font-bold text-xl md:text-2xl uppercase tracking-[3px] devil-horn-card hover:shadow-[0_0_40px_var(--neon-red)] transition-shadow duration-300"
+          className="relative inline-flex group/btn overflow-hidden px-10 py-5 bg-neon-red text-black font-bold text-xl md:text-2xl uppercase tracking-[3px] devil-horn-card transition-transform duration-300 hover:scale-105"
         >
           <span className="relative z-10 flex items-center gap-4">
             Register Now
@@ -83,7 +80,7 @@ export default function FinalCTA() {
           </span>
           <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 }

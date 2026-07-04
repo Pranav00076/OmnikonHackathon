@@ -48,7 +48,7 @@ function TypewriterText({ text, speed = 15, onComplete }: { text: string, speed?
 
 export default function Rulebook() {
   const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { amount: 0.4 });
+  const isInView = true; // Force true to animate on mount instead of scroll
   
   const [activeRule, setActiveRule] = useState<typeof rulesData[0] | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

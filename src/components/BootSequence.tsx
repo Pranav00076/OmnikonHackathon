@@ -9,10 +9,11 @@ const BOOT_SEQUENCE = [
   "Verifying Rules...",
 ];
 
-export default function BootSequence({ onComplete }: { onComplete: () => void }) {
+export default function BootSequence({ isLoaded, onComplete }: { isLoaded?: boolean; onComplete: () => void }) {
   const [lines, setLines] = useState<string[]>([]);
   const [isVisible, setIsVisible] = useState(true);
   const [flashing, setFlashing] = useState(false);
+  const [sequenceDone, setSequenceDone] = useState(false);
 
   useEffect(() => {
     let currentLine = 0;
@@ -22,18 +23,28 @@ export default function BootSequence({ onComplete }: { onComplete: () => void })
         currentLine++;
       } else {
         clearInterval(interval);
-        setTimeout(() => {
-          setFlashing(true);
-          setTimeout(() => {
-            setIsVisible(false);
-            setTimeout(onComplete, 1200); // Wait for transition
-          }, 300); // flash duration
-        }, 800);
+        setSequenceDone(true);
       }
     }, 800); // 800ms per line
 
     return () => clearInterval(interval);
-  }, [onComplete]);
+  }, []);
+
+  useEffect(() => {
+    // Default to true if isLoaded is undefined (for backward compatibility if needed)
+    const pageLoaded = isLoaded !== false;
+    
+    if (sequenceDone && pageLoaded) {
+      const timer = setTimeout(() => {
+        setFlashing(true);
+        setTimeout(() => {
+          setIsVisible(false);
+          setTimeout(onComplete, 1200); // Wait for transition
+        }, 300); // flash duration
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [sequenceDone, isLoaded, onComplete]);
 
   return (
     <AnimatePresence>

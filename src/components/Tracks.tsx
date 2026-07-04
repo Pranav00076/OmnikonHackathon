@@ -65,10 +65,7 @@ function TrackCard({ track, index }: { track: typeof tracks[0], index: number })
   };
 
   return (
-    <motion.div 
-      whileInView={{ opacity: [0, 1], y: [50, 0] }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+    <div 
       style={{ perspective: 1000 }}
       className="group h-full"
     >
@@ -102,7 +99,7 @@ function TrackCard({ track, index }: { track: typeof tracks[0], index: number })
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -110,15 +107,13 @@ export default function Tracks() {
   return (
     <section id="tracks" className="py-24 px-6 md:px-12 min-h-screen relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div 
-          whileInView={{ opacity: [0, 1], y: [30, 0] }}
-          viewport={{ once: true }}
+        <div 
           className="text-center mb-20"
         >
           <h2 className="neon-text text-5xl md:text-6xl text-text-primary mb-6">CHOOSE YOUR ARENA</h2>
           <div className="w-24 h-1 bg-neon-red mx-auto shadow-[0_0_15px_var(--neon-red)]" />
           <p className="text-text-secondary text-xl mt-6 font-light tracking-wide">Select your battlefield and claim victory.</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {tracks.map((track, i) => (

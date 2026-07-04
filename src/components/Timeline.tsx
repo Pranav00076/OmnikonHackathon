@@ -59,13 +59,9 @@ export default function Timeline() {
           {phases.map((phase, index) => {
             const isLeft = index % 2 === 0;
             return (
-              <motion.div 
+              <div 
                 key={phase.id} 
                 className={`relative z-10 flex items-center justify-between w-full flex-row ${isLeft ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6 }}
               >
                 
                 {/* Empty Spacer for Desktop */}
@@ -86,7 +82,7 @@ export default function Timeline() {
                   </div>
                 </div>
 
-              </motion.div>
+              </div>
             );
           })}
         </div>

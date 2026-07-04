@@ -26,9 +26,10 @@ export default function AntigravityBackground() {
 
     const handleMouseMove = (e: MouseEvent) => {
       // Get mouse position relative to the hero section
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
+      if (cachedCanvasRect) {
+        mouse.x = e.clientX - cachedCanvasRect.left;
+        mouse.y = e.clientY - cachedCanvasRect.top;
+      }
     };
     
     const handleMouseLeave = () => {
@@ -39,9 +40,9 @@ export default function AntigravityBackground() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', () => {
-      const rect = canvas.getBoundingClientRect();
-      width = canvas.width = rect.width;
-      height = canvas.height = rect.height;
+      cachedCanvasRect = canvas.getBoundingClientRect();
+      width = canvas.width = cachedCanvasRect.width;
+      height = canvas.height = cachedCanvasRect.height;
       init();
     });
 
@@ -178,6 +179,15 @@ export default function AntigravityBackground() {
     let animationFrameId: number;
     let isVisible = true;
 
+    // Cache canvas rect to avoid layout thrashing on mousemove
+    let cachedCanvasRect = canvas.getBoundingClientRect();
+    
+    const handleScroll = () => {
+      cachedCanvasRect = canvas.getBoundingClientRect();
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     const observer = new IntersectionObserver((entries) => {
       isVisible = entries[0].isIntersecting;
       if (isVisible) {
@@ -195,9 +205,6 @@ export default function AntigravityBackground() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, width, height);
 
-      // Continuously update logo center in case of scroll/resize
-      updateLogoCenter();
-
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
       }
@@ -210,6 +217,7 @@ export default function AntigravityBackground() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
       cancelAnimationFrame(animationFrameId);
     };

@@ -31,10 +31,7 @@ const prizes = [
 
 function VaultCard({ prize }: { prize: typeof prizes[0] }) {
   return (
-    <motion.div
-      whileInView={{ opacity: [0, 1], y: [50, 0] }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: prize.delay }}
+    <div
       className={cn(
         "relative group w-full sm:w-[320px] h-[400px] rounded-xl overflow-hidden cursor-pointer perspective-[1000px]",
         prize.scale && "lg:scale-110 z-10"
@@ -100,7 +97,7 @@ function VaultCard({ prize }: { prize: typeof prizes[0] }) {
           RESTRICTED ACCESS /// RESTRICTED ACCESS /// RESTRICTED ACCESS
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

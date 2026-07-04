@@ -12,10 +12,8 @@ const terminalCommands = [
 function Terminal() {
   const [lines, setLines] = useState<{ text: string, isCommand: boolean }[]>([]);
   const terminalRef = useRef(null);
-  const isInView = useInView(terminalRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (!isInView) return;
 
     const timeouts: NodeJS.Timeout[] = [];
 
@@ -32,10 +30,10 @@ function Terminal() {
     });
 
     return () => timeouts.forEach(clearTimeout);
-  }, [isInView]);
+  }, []);
 
   return (
-    <div ref={terminalRef} className="glass neon-border" style={{ borderRadius: '10px', overflow: 'hidden', height: '400px', display: 'flex', flexDirection: 'column', boxShadow: '0 0 30px rgba(255,0,0,0.2)' }}>
+    <div ref={terminalRef} className="glass neon-border" style={{ borderRadius: '10px', overflow: 'hidden', height: '450px', display: 'flex', flexDirection: 'column', boxShadow: '0 0 30px rgba(255,0,0,0.2)' }}>
       <div style={{ background: 'var(--bg-secondary)', padding: '0.8rem 1rem', display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--glass-border)' }}>
         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }} />
         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
@@ -56,13 +54,11 @@ function Terminal() {
             )}
           </div>
         ))}
-        {isInView && (
-          <motion.div 
-            animate={{ opacity: [1, 0] }} 
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            style={{ width: '10px', height: '20px', background: 'var(--neon-red)', display: 'inline-block', marginTop: '0.5rem' }}
-          />
-        )}
+        <motion.div 
+          animate={{ opacity: [1, 0] }} 
+          transition={{ repeat: Infinity, duration: 0.8 }}
+          style={{ width: '10px', height: '20px', background: 'var(--neon-red)', display: 'inline-block', marginTop: '0.5rem' }}
+        />
       </div>
     </div>
   );
@@ -73,11 +69,7 @@ export default function AboutTerminal() {
     <section id="about" style={{ padding: '100px 2rem', minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
         
-        <motion.div 
-          whileInView={{ opacity: [0, 1], x: [-50, 0] }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
+        <div>
           <h2 className="neon-text" style={{ fontSize: '3.5rem', marginBottom: '1.5rem', color: 'var(--neon-red)' }}>
             ENTER THE ARENA
           </h2>
@@ -101,15 +93,11 @@ export default function AboutTerminal() {
               <div style={{ color: 'var(--neon-red)', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px' }}>Hackers</div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          whileInView={{ opacity: [0, 1], x: [50, 0] }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
+        <div>
           <Terminal />
-        </motion.div>
+        </div>
 
       </div>
     </section>

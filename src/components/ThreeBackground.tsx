@@ -5,7 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-const count = 1500;
+const count = 800;
 const positions = new Float32Array(count * 3);
 for (let i = 0; i < count; i++) {
   const theta = Math.random() * 2 * Math.PI;
@@ -62,8 +62,12 @@ function GridFloor() {
 
 export default function ThreeBackground() {
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: '#000000' }}>
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: -1, background: '#000000', pointerEvents: 'none' }}>
+      <Canvas 
+        camera={{ position: [0, 0, 5], fov: 60 }} 
+        dpr={1} 
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
         <Particles />
         <GridFloor />
         <fog attach="fog" args={['#000000', 2, 12]} />

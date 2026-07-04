@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ThreeBackground from "@/components/ThreeBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -17,13 +17,24 @@ import FinalCTA from "@/components/FinalCTA";
 
 export default function Home() {
   const [booting, setBooting] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (document.readyState === 'complete') {
+      setIsLoaded(true);
+    } else {
+      const handleLoad = () => setIsLoaded(true);
+      window.addEventListener('load', handleLoad);
+      return () => window.removeEventListener('load', handleLoad);
+    }
+  }, []);
 
   return (
-    <main>
+    <main className={booting ? "h-screen overflow-hidden" : ""}>
       {/* Boot Sequence Overlay */}
-      {booting && <BootSequence onComplete={() => setBooting(false)} />}
+      {booting && <BootSequence isLoaded={isLoaded} onComplete={() => setBooting(false)} />}
       
-      <div className={booting ? "opacity-0" : "opacity-100 transition-opacity duration-1000"}>
+      <div className={booting ? "opacity-0 pointer-events-none" : "opacity-100 transition-opacity duration-1000"}>
         <ThreeBackground />
         <Navbar />
         <Hero />

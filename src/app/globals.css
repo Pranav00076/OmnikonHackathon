@@ -7,7 +7,7 @@
   --neon-red-light: #ff2a2a;
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
-  --glass-bg: rgba(13, 13, 13, 0.7);
+  --glass-bg: rgba(13, 13, 13, 0.95);
   --glass-border: rgba(255, 0, 0, 0.2);
 }
 
@@ -73,8 +73,6 @@ p, span, div {
 /* Glassmorphism utility */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
